@@ -151,11 +151,26 @@ void GbaRtc::ProcessCommand()
 	}
 }
 
+static int CalcBCD(int val)
+{
+	return (val / 10 << 4) + (val % 10);
+}
+
+
 void GbaRtc::Reset()
 {
 	_state = {};
-	_state.Month = 1;
-	_state.Day = 1;
+	//With this, each time start a new game, RTC automatically syncs to system clock
+	std::time_t now = time(0);
+	std::tm* gmtm = localtime(&now);
+	_state.Year = CalcBCD(gmtm->tm_year % 100);
+	_state.Month = CalcBCD(gmtm->tm_mon + 1);
+	_state.Day = CalcBCD(gmtm->tm_mday);
+	_state.DoW = gmtm->tm_wday; //Only 0~6, don't need that.
+	_state.Hour = CalcBCD(gmtm->tm_hour);
+	_state.Minute = CalcBCD(gmtm->tm_min);
+	_state.Second = CalcBCD(gmtm->tm_sec);
+	_state.Status = 64;
 }
 
 void GbaRtc::UpdateTime()
