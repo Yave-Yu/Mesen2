@@ -80,22 +80,22 @@ namespace Mesen.Views
 
 		private void mnuGrayscalePreset_Click(object sender, RoutedEventArgs e)
 		{
-			SetPalette(Color.FromArgb(255, 232, 232, 232), Color.FromArgb(255, 160, 160, 160), Color.FromArgb(255, 88, 88, 88), Color.FromArgb(255, 16, 16, 16));
+			SetPalette(Color.FromArgb(255, 235, 235, 235), Color.FromArgb(255, 160, 160, 160), Color.FromArgb(255, 88, 88, 88), Color.FromArgb(255, 16, 16, 16));
 		}
 
 		private void mnuGrayscaleHighContrastPreset_Click(object sender, RoutedEventArgs e)
 		{
-			SetPalette(Color.FromArgb(255, 255, 255, 255), Color.FromArgb(255, 176, 176, 176), Color.FromArgb(255, 104, 104, 104), Color.FromArgb(255, 0, 0, 0));
+			SetPalette(Color.FromArgb(255, 255, 255, 255), Color.FromArgb(255, 181, 181, 181), Color.FromArgb(255, 115, 115, 115), Color.FromArgb(255, 0, 0, 0));
 		}
 
 		private void mnuGreenPreset_Click(object sender, RoutedEventArgs e)
 		{
-			SetPalette(Color.FromArgb(255, 224, 248, 208), Color.FromArgb(255, 136, 192, 112), Color.FromArgb(255, 52, 104, 86), Color.FromArgb(255, 8, 24, 32));
+			SetPalette(Color.FromArgb(255, 222, 239, 148), Color.FromArgb(255, 173, 198, 66), Color.FromArgb(255, 82, 132, 49), Color.FromArgb(255, 33, 74, 33));
 		}
 
 		private void mnuBrownPreset_Click(object sender, RoutedEventArgs e)
 		{
-			SetPalette(Color.FromArgb(255, 248, 224, 136), Color.FromArgb(255, 216, 176, 88), Color.FromArgb(255, 152, 120, 56), Color.FromArgb(255, 72, 56, 24));
+			SetPalette(Color.FromArgb(255, 255, 231, 140), Color.FromArgb(255, 222, 181, 90), Color.FromArgb(255, 156, 123, 57), Color.FromArgb(255, 74, 57, 24));
 		}
 
 		private void SetPalette(Color color0, Color color1, Color color2, Color color3)
