@@ -60,6 +60,8 @@ namespace Mesen.ViewModels
 				EmulatorShortcut.SetScale8x,
 				EmulatorShortcut.SetScale9x,
 				EmulatorShortcut.SetScale10x,
+				EmulatorShortcut.SetScale11x,
+				EmulatorShortcut.SetScale12x,
 				EmulatorShortcut.ToggleFullscreen,
 
 				EmulatorShortcut.ToggleDebugInfo,
@@ -91,6 +93,7 @@ namespace Mesen.ViewModels
 				EmulatorShortcut.MaxSpeed,
 				EmulatorShortcut.IncreaseSpeed,
 				EmulatorShortcut.DecreaseSpeed,
+				EmulatorShortcut.NormalSpeed,
 
 				EmulatorShortcut.OpenFile,
 				
