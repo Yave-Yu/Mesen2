@@ -174,6 +174,11 @@ void Emulator::ProcessAutoSaveState()
 		_autoSaveStateFrameCounter--;
 		if(_autoSaveStateFrameCounter == 0) {
 			_saveStateManager->SaveState(SaveStateManager::AutoSaveStateIndex, false);
+			//Also update save file if game has
+			if(_console) {
+				//Seems Mesen know how to deal this, if no save file present, it won't create one
+				_console->SaveBattery();
+			}
 		}
 	} else {
 		uint32_t saveStateDelay = _settings->GetPreferences().AutoSaveStateDelay;
