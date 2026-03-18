@@ -167,7 +167,7 @@ public:
 				SetPeriod((_realPeriod & 0xFF) | ((value & 0x07) << 8));
 
 				//The sequencer is restarted at the first value of the current sequence.
-				_dutyPos = 0;
+				if(!_console->GetNesConfig().DisableSquareResetPhase) _dutyPos = 0;
 
 				//The envelope is also restarted.
 				_envelope.ResetEnvelope();
