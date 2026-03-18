@@ -177,10 +177,12 @@ double NesSoundMixer::GetChannelOutput(AudioChannel channel, bool forRightChanne
 int16_t NesSoundMixer::GetOutputVolume(bool forRightChannel)
 {
 	double squareOutput = GetChannelOutput(AudioChannel::Square1, forRightChannel) + GetChannelOutput(AudioChannel::Square2, forRightChannel);
-	double tndOutput = GetChannelOutput(AudioChannel::DMC, forRightChannel) + 2.7516713261 * GetChannelOutput(AudioChannel::Triangle, forRightChannel) + 1.8493587125 * GetChannelOutput(AudioChannel::Noise, forRightChannel);
+	double tndOutput = GetChannelOutput(AudioChannel::DMC, forRightChannel) + 2.5 * GetChannelOutput(AudioChannel::Triangle, forRightChannel) + 2.0 * GetChannelOutput(AudioChannel::Noise, forRightChannel);
 
-	uint16_t squareVolume = (uint16_t)((95.88*5000.0) / (8128.0 / squareOutput + 100.0));
-	uint16_t tndVolume = (uint16_t)((159.79*5000.0) / (22638.0 / tndOutput + 100.0));
+	//Non-linear mixer 95.52 * 5000.0, linear mixer 0.00752 * 5000.0
+	uint16_t squareVolume = !_console->GetNesConfig().UseLinearSquareMixer ? (uint16_t)(477600.0 / (8128.0 / squareOutput + 100.0)) : (uint16_t)(37.6 * squareOutput);
+	//APU2 keeps non-linear 159.79 * 5000.0
+	uint16_t tndVolume = (uint16_t)(798950.0 / (22638.0 / tndOutput + 100.0));
 
 	return (int16_t)(squareVolume + tndVolume +
 		GetChannelOutput(AudioChannel::FDS, forRightChannel) * 20 +
