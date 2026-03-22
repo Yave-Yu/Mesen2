@@ -90,7 +90,7 @@ public:
 
 	GbaMemoryManager* GetMemoryManager();
 
-	void ProcessEndOfFrame();
+	void UpdateInput();
 
 	void Serialize(Serializer& s) override;
 
