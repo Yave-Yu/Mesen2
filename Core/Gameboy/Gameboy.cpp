@@ -545,6 +545,8 @@ GameboyModel Gameboy::GetEffectiveModel(GameboyHeader& header)
 
 void Gameboy::RunFrame()
 {
+	UpdateInput();
+	//Get input first so 1 frame input lag gone
 	uint32_t frameCount = _ppu->GetFrameCount();
 	while(frameCount == _ppu->GetFrameCount()) {
 		_cpu->Exec();
@@ -554,7 +556,7 @@ void Gameboy::RunFrame()
 	_apu->PlayQueuedAudio();
 }
 
-void Gameboy::ProcessEndOfFrame()
+void Gameboy::UpdateInput()
 {
 	_controlManager->UpdateControlDevices();
 	_controlManager->UpdateInputState();
