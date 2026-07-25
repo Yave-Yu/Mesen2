@@ -274,6 +274,7 @@
 			<Control ID="lblMiscSettings">Miscellaneous Settings</Control>
 			<Control ID="lblColorCorrection">Color correction type:</Control>
 			<Control ID="lblHighResBlendMode">High resolution blend mode:</Control>
+			<Control ID="lblDeinterlaceMode">Deinterlace mode: </Control>
 			<Control ID="chkRemoveSpriteLimit">Remove sprite limit</Control>
 			<Control ID="chkDisableFrameSkipping">Disable frame skipping when fast forwarding</Control>
 			<Control ID="chkForceFixedResolution">Use fixed output resolution (2x scale, ≈512x478)</Control>
@@ -2496,6 +2497,12 @@ E
 			<Value ID="None">None (default)</Value>
 			<Value ID="NtscBlackLevel">NTSC-U black level</Value>
 			<Value ID="DeepBlackBoost">Deep black boost (ares)</Value>
+		</Enum>
+		<Enum ID="SnesDeinterlaceMode">
+			<Value ID="Weave">Weave (default)</Value>
+			<Value ID="BobBlend">Bob + blend</Value>
+			<Value ID="Bob">Bob</Value>
+			<Value ID="CurrentField">Show current field only</Value>
 		</Enum>
 		<Enum ID="PceConsoleType">
 			<Value ID="Auto">Auto (recommended)</Value>

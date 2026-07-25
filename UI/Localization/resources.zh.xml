@@ -274,6 +274,7 @@
 			<Control ID="lblMiscSettings">其它设置</Control>
 			<Control ID="lblColorCorrection">色彩校正类型：</Control>
 			<Control ID="lblHighResBlendMode">高分辨率混合模式：</Control>
+			<Control ID="lblDeinterlaceMode">反交错模式：</Control>
 			<Control ID="chkRemoveSpriteLimit">移除活动块限制</Control>
 			<Control ID="chkDisableFrameSkipping">快进时不跳帧</Control>
 			<Control ID="chkForceFixedResolution">固定2倍分辨率输出</Control>
@@ -2496,6 +2497,12 @@ E
 			<Value ID="None">无（默认）</Value>
 			<Value ID="NtscBlackLevel">NTSC黑电平（美版）</Value>
 			<Value ID="DeepBlackBoost">深黑增强（ares）</Value>
+		</Enum>
+		<Enum ID="SnesDeinterlaceMode">
+			<Value ID="Weave">交错（默认）</Value>
+			<Value ID="BobBlend">单场+混合</Value>
+			<Value ID="Bob">单场</Value>
+			<Value ID="CurrentField">仅当前场</Value>
 		</Enum>
 		<Enum ID="PceConsoleType">
 			<Value ID="Auto">自动（推荐）</Value>

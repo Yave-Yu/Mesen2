@@ -577,6 +577,14 @@ enum class SnesColorCorrectionMode
 	DeepBlackBoost
 };
 
+enum class SnesDeinterlaceMode
+{
+	Weave,
+	BobBlend,
+	Bob,
+	CurrentField
+};
+
 struct SnesConfig
 {
 	ControllerConfig Port1;
@@ -590,6 +598,7 @@ struct SnesConfig
 	bool AllowInvalidInput = false;
 	SnesColorCorrectionMode ColorCorrection = SnesColorCorrectionMode::None;
 	SnesHighResBlendMode HighResBlendMode = SnesHighResBlendMode::None;
+	SnesDeinterlaceMode DeinterlaceMode = SnesDeinterlaceMode::Weave;
 	bool RemoveSpriteLimit = false;
 	bool HideBgLayer1 = false;
 	bool HideBgLayer2 = false;
