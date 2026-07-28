@@ -230,24 +230,7 @@ protected:
 	static constexpr uint32_t _spritePreviewSize = 128 * 128;
 	static constexpr uint32_t _grayscaleColorsBpp1[2] = { 0xFF000000, 0xFFFFFFFF };
 	static constexpr uint32_t _grayscaleColorsBpp2[4] = { 0xFF000000, 0xFF666666, 0xFFBBBBBB, 0xFFFFFFFF };
-	static constexpr uint32_t _grayscaleColorsBpp4[16] = {
-		0xFF000000,
-		0xFF303030,
-		0xFF404040,
-		0xFF505050,
-		0xFF606060,
-		0xFF707070,
-		0xFF808080,
-		0xFF909090,
-		0xFF989898,
-		0xFFA0A0A0,
-		0xFFAAAAAA,
-		0xFFBBBBBB,
-		0xFFCCCCCC,
-		0xFFDDDDDD,
-		0xFFEEEEEE,
-		0xFFFFFFFF
-	};
+	static constexpr uint32_t _grayscaleColorsBpp4[16] = { 0xFF000000, 0xFF303030, 0xFF404040, 0xFF505050, 0xFF606060, 0xFF707070, 0xFF808080, 0xFF909090, 0xFF989898, 0xFFA0A0A0, 0xFFAAAAAA, 0xFFBBBBBB, 0xFFCCCCCC, 0xFFDDDDDD, 0xFFEEEEEE, 0xFFFFFFFF };
 
 	Emulator* _emu;
 	Debugger* _debugger;
@@ -260,7 +243,8 @@ protected:
 
 	bool IsTileHidden(MemoryType memType, uint32_t addr, GetTileViewOptions& options);
 
-	uint32_t GetBackgroundColor(TileBackground bgColor, const uint32_t* colors, uint8_t paletteIndex = 0, uint8_t bpp = 0);
+	uint32_t GetTilemapBackgroundColor(TilemapBackground bgColor, uint32_t defaultColor);
+	uint32_t GetTileBackgroundColor(TileBackground bgColor, const uint32_t* colors, uint8_t paletteIndex = 0, uint8_t bpp = 0);
 	uint32_t GetSpriteBackgroundColor(SpriteBackground bgColor, const uint32_t* colors, bool useDarkerColor);
 
 	void GetSetTilePixel(AddressInfo tileAddress, TileFormat format, int32_t x, int32_t y, int32_t& color, bool forGet);

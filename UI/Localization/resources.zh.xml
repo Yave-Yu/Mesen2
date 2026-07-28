@@ -1066,6 +1066,7 @@
 
 			<Control ID="btnToggleSettings">切换设置面板</Control>
 
+			<Control ID="lblBackground">背景色：</Control>
 			<Control ID="lblDisplayMode">显示模式：</Control>
 			<Control ID="lblSelectedTile">选择的图块</Control>
 			<Control ID="lblTilemap">布局</Control>
@@ -2963,6 +2964,13 @@ E
 			<Value ID="None">无</Value>
 			<Value ID="HideUsed">隐藏使用的图块</Value>
 			<Value ID="HideUnused">隐藏未使用的图块</Value>
+		</Enum>
+		<Enum ID="TilemapBackground">
+			<Value ID="Default">默认</Value>
+			<Value ID="Transparent">透明</Value>
+			<Value ID="Black">黑</Value>
+			<Value ID="White">白</Value>
+			<Value ID="Magenta">洋红</Value>
 		</Enum>
 		<Enum ID="TileBackground">
 			<Value ID="Default">默认（颜色0）</Value>
