@@ -34,6 +34,9 @@ namespace Mesen.Config
 		[ObservableProperty] public partial EventViewerCategoryCfg TimerWrites { get; set; } = new EventViewerCategoryCfg(Color.FromRgb(0xD1, 0xDD, 0x42));
 		[ObservableProperty] public partial EventViewerCategoryCfg TimerReads { get; set; } = new EventViewerCategoryCfg(Color.FromRgb(0x00, 0x75, 0x97));
 
+		[ObservableProperty] public partial EventViewerCategoryCfg VpcWrites { get; set; } = new EventViewerCategoryCfg(Color.FromRgb(0x56, 0x9D, 0xB7));
+		[ObservableProperty] public partial EventViewerCategoryCfg VpcReads { get; set; } = new EventViewerCategoryCfg(Color.FromRgb(0x9D, 0x56, 0xB7));
+
 		[ObservableProperty] public partial EventViewerCategoryCfg IoWrites { get; set; } = new EventViewerCategoryCfg(Color.FromRgb(0xFF, 0x5E, 0x5E));
 		[ObservableProperty] public partial EventViewerCategoryCfg IoReads { get; set; } = new EventViewerCategoryCfg(Color.FromRgb(0x18, 0x98, 0xE4));
 		[ObservableProperty] public partial EventViewerCategoryCfg IrqControlWrites { get; set; } = new EventViewerCategoryCfg(Color.FromRgb(0xFF, 0x5E, 0xDD));
@@ -41,6 +44,7 @@ namespace Mesen.Config
 
 		[ObservableProperty] public partial EventViewerCategoryCfg Irq { get; set; } = new EventViewerCategoryCfg(Color.FromRgb(0xC4, 0xF4, 0x7A));
 
+		[ObservableProperty] public partial PceEventViewerSgxFilter SuperGrafxFilter { get; set; } = PceEventViewerSgxFilter.Both;
 		[ObservableProperty] public partial EventViewerCategoryCfg MarkedBreakpoints { get; set; } = new EventViewerCategoryCfg(Color.FromRgb(0x18, 0x98, 0xE4));
 
 		[ObservableProperty] public partial bool ShowPreviousFrameEvents { get; set; } = true;
@@ -77,10 +81,21 @@ namespace Mesen.Config
 				ArcadeCardReads = this.ArcadeCardReads,
 				ArcadeCardWrites = this.ArcadeCardWrites,
 
+				VpcWrites = this.VpcWrites,
+				VpcReads = this.VpcReads,
+
 				Irq = this.Irq,
 				MarkedBreakpoints = this.MarkedBreakpoints,
+				SuperGrafxFilter = this.SuperGrafxFilter,
 				ShowPreviousFrameEvents = this.ShowPreviousFrameEvents
 			};
 		}
+	}
+
+	public enum PceEventViewerSgxFilter
+	{
+		Both,
+		Vdc1,
+		Vdc2
 	}
 }

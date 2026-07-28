@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Mesen.Config;
 using Mesen.Debugger;
 using Mesen.Utilities;
 using System;
@@ -975,6 +976,10 @@ namespace Mesen.Interop
 		public InteropEventViewerCategoryCfg ArcadeCardWrites;
 		public InteropEventViewerCategoryCfg ArcadeCardReads;
 
+		public InteropEventViewerCategoryCfg VpcWrites;
+		public InteropEventViewerCategoryCfg VpcReads;
+
+		public PceEventViewerSgxFilter SuperGrafxFilter;
 		[MarshalAs(UnmanagedType.I1)] public bool ShowPreviousFrameEvents;
 	}
 

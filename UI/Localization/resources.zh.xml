@@ -2515,6 +2515,11 @@ E
 			<Value ID="SuperCdRom">超级CD-ROM²</Value>
 			<Value ID="Arcade">街机CD-ROM²（推荐）</Value>
 		</Enum>
+		<Enum ID="PceEventViewerSgxFilter">
+			<Value ID="Both">两者</Value>
+			<Value ID="Vdc1">仅VDC1</Value>
+			<Value ID="Vdc2">仅VDC2</Value>
+		</Enum>
 		<Enum ID="RamState">
 			<Value ID="Random">随机数值</Value>
 			<Value ID="AllZeros">全00</Value>
