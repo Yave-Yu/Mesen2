@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Input;
+using Avalonia.Input.Platform;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
@@ -10,6 +11,7 @@ using Avalonia.Platform;
 using Avalonia.Rendering.SceneGraph;
 using Avalonia.Skia;
 using Avalonia.Threading;
+using Mesen.Interop;
 using Mesen.Utilities;
 using SkiaSharp;
 using System;
@@ -270,10 +272,25 @@ namespace Mesen.Debugger.Controls
 		public async void ExportToPng()
 		{
 			if(Source is Bitmap bitmap) {
-				string? filename = await FileDialogHelper.SaveFile(null, null, this.GetWindow(), FileDialogHelper.PngExt);
+				Window? wnd = this.GetWindow();
+
+				string initialFilename = EmuApi.GetRomInfo().GetRomName();
+				if(wnd != null) {
+					initialFilename += " - " + wnd.Title;
+				}
+				initialFilename += "." + FileDialogHelper.PngExt;
+
+				string? filename = await FileDialogHelper.SaveFile(null, initialFilename, wnd, FileDialogHelper.PngExt);
 				if(filename != null) {
 					bitmap.Save(filename);
 				}
+			}
+		}
+
+		public async void CopyToClipboard()
+		{
+			if(Source is Bitmap bitmap) {
+				this.GetWindow()?.Clipboard?.SetBitmapAsync(bitmap);
 			}
 		}
 

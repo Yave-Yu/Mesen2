@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Input.Platform;
 using Avalonia.Layout;
 using Avalonia.Platform;
 using Avalonia.Threading;
@@ -92,6 +93,11 @@ namespace Mesen.Debugger.ViewModels
 					Shortcut = () => ConfigManager.Config.Debug.Shortcuts.Get(DebuggerShortcut.SaveAsPng),
 					OnClick = () => picViewer.ExportToPng()
 				},
+				new ContextMenuAction() {
+					ActionType = ActionType.CopyToClipboard,
+					Shortcut = () => ConfigManager.Config.Debug.Shortcuts.Get(DebuggerShortcut.Copy),
+					OnClick = () => picViewer.CopyToClipboard()
+				},
 				new ContextMenuSeparator(),
 				new ContextMenuAction() {
 					ActionType = ActionType.Exit,
@@ -146,6 +152,8 @@ namespace Mesen.Debugger.ViewModels
 			}
 
 			AddDisposables(DebugShortcutManager.CreateContextMenu(picViewer, scrollViewer, new List<object> {
+				GetCopyTileAction(wnd),
+				new ContextMenuSeparator(),
 				GetEditTileAction(wnd),
 				GetViewInMemoryViewerAction(),
 				GetViewInTileViewerAction(),
@@ -154,6 +162,8 @@ namespace Mesen.Debugger.ViewModels
 			}));
 
 			AddDisposables(DebugShortcutManager.CreateContextMenu(_spriteGrid, new List<object> {
+				GetCopyTileAction(wnd),
+				new ContextMenuSeparator(),
 				GetEditTileAction(wnd),
 				GetViewInMemoryViewerAction(),
 				GetViewInTileViewerAction(),
@@ -162,6 +172,8 @@ namespace Mesen.Debugger.ViewModels
 			}));
 
 			AddDisposables(DebugShortcutManager.CreateContextMenu(listView, new List<object> {
+				GetCopyTileAction(wnd),
+				new ContextMenuSeparator(),
 				GetEditTileAction(wnd),
 				GetViewInMemoryViewerAction(),
 				GetViewInTileViewerAction(),
@@ -189,6 +201,20 @@ namespace Mesen.Debugger.ViewModels
 		partial void OnSpritePreviewsChanged(List<SpritePreviewModel> value)
 		{
 			ListView.RefreshList(true);
+		}
+
+		private ContextMenuAction GetCopyTileAction(Window wnd)
+		{
+			return new ContextMenuAction() {
+				ActionType = ActionType.CopyToClipboard,
+				IsEnabled = () => GetSelectedSprite() != null,
+				OnClick = () => {
+					SpritePreviewModel? sprite = GetSelectedSprite();
+					if(sprite != null) {
+						wnd.Clipboard?.SetBitmapAsync(sprite.SpritePreview);
+					}
+				}
+			};
 		}
 
 		private ContextMenuAction GetEditTileAction(Window wnd)
