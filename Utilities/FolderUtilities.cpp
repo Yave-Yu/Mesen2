@@ -165,7 +165,7 @@ vector<string> FolderUtilities::GetFolders(string rootFolder)
 	std::error_code errorCode;
 	if(!fs::is_directory(fs::u8path(rootFolder), errorCode)) {
 		return folders;
-	} 
+	}
 
 	for(fs::recursive_directory_iterator i(fs::u8path(rootFolder)), end; i != end; i++) {
 		if(i.depth() > 1) {
