@@ -187,7 +187,13 @@ namespace Mesen.Interop
 		PcEngine = 3,
 		Sms = 4,
 		Gba = 5,
-		Ws = 6,
+		Ws = 6
+	}
+
+	public enum ByteCodeFormat
+	{
+		Bytes,
+		HexValue
 	}
 
 	public struct InteropDipSwitchInfo
@@ -299,7 +305,7 @@ namespace Mesen.Interop
 	{
 		NextTrack,
 		PrevTrack,
-		SelectTrack,
+		SelectTrack
 	}
 
 	public struct AudioPlayerActionParams
