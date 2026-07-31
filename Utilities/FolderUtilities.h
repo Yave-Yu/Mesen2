@@ -31,7 +31,7 @@ public:
 	static string GetRecentGamesFolder();
 
 	static vector<string> GetFolders(string rootFolder);
-	static vector<string> GetFilesInFolder(string rootFolder, std::unordered_set<string> extensions, bool recursive);
+	static vector<string> GetFilesInFolder(string rootFolder, std::unordered_set<string> extensions, bool recursive, int maxDepth);
 
 	static string GetFilename(string filepath, bool includeExtension);
 	static string GetExtension(string filename);

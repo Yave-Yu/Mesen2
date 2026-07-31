@@ -5,7 +5,7 @@
 #include "NES/Mappers/Audio/Vrc6Saw.h"
 #include "Utilities/Serializer.h"
 
-class RainbowAudio : public ISerializable
+class RainbowAudio final : public ISerializable
 {
 private:
 	NesConsole* _console = nullptr;
