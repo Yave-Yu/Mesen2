@@ -631,19 +631,21 @@ void Debugger::ProcessEvent(EventType type, std::optional<CpuType> cpuTypeOpt)
 			}
 			break;
 
-		case EventType::HaltStarted:
+		case EventType::HaltStarted: {
 			CallstackManager* manager = GetCallstackManager(evtCpuType);
 			if(manager) {
 				manager->PushHalted();
 			}
 			break;
+		}
 
-		case EventType::HaltEnded:
+		case EventType::HaltEnded: {
 			CallstackManager* manager = GetCallstackManager(evtCpuType);
 			if(manager) {
 				manager->PopHalted();
 			}
 			break;
+		}
 	}
 }
 
