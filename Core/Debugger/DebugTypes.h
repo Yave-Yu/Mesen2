@@ -38,7 +38,7 @@ enum class BreakpointTypeFlags
 	Read = 1,
 	Write = 2,
 	Execute = 4,
-	Forbid = 8,
+	Forbid = 8
 };
 
 enum class BreakpointType
@@ -46,7 +46,7 @@ enum class BreakpointType
 	Execute = 0,
 	Read = 1,
 	Write = 2,
-	Forbid = 3,
+	Forbid = 3
 };
 
 namespace CdlFlags
@@ -57,7 +57,7 @@ namespace CdlFlags
 		Code = 0x01,
 		Data = 0x02,
 		JumpTarget = 0x04,
-		SubEntryPoint = 0x08,
+		SubEntryPoint = 0x08
 	};
 }
 
@@ -65,7 +65,7 @@ enum class CdlStripOption
 {
 	StripNone = 0,
 	StripUnused,
-	StripUsed,
+	StripUsed
 };
 
 struct CdlStatistics
@@ -231,7 +231,7 @@ enum class TileBackground
 	PaletteColor,
 	Black,
 	White,
-	Magenta,
+	Magenta
 };
 
 enum class TileFilter
@@ -262,7 +262,7 @@ enum class SpriteBackground
 	Transparent,
 	Black,
 	White,
-	Magenta,
+	Magenta
 };
 
 struct GetSpritePreviewOptions
@@ -279,7 +279,8 @@ enum class StackFrameFlags
 {
 	None = 0,
 	Nmi = 1,
-	Irq = 2
+	Irq = 2,
+	Halt = 4
 };
 
 struct StackFrameInfo
