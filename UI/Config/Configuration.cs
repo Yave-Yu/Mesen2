@@ -220,7 +220,7 @@ namespace Mesen.Config
 		public static FontConfig GetDefaultFont()
 		{
 			if(OperatingSystem.IsWindows()) {
-				return ConfigManager.Config.GetFontByLanguage();
+				return ConfigManager.Config.GetFontByLanguage(true);
 			} else if(OperatingSystem.IsMacOS()) {
 				return new FontConfig() { FontFamily = FindMatchingFont("Microsoft Sans Serif"), FontSize = 11 };
 			} else {
@@ -231,7 +231,7 @@ namespace Mesen.Config
 		public static FontConfig GetDefaultMenuFont()
 		{
 			if(OperatingSystem.IsWindows()) {
-				return new FontConfig() { FontFamily = "Segoe UI", FontSize = 12 };
+				return ConfigManager.Config.GetFontByLanguage(false);
 			} else if(OperatingSystem.IsMacOS()) {
 				return new FontConfig() { FontFamily = FindMatchingFont("Microsoft Sans Serif"), FontSize = 12 };
 			} else {
@@ -313,13 +313,13 @@ namespace Mesen.Config
 			}
 		}
 
-		private FontConfig GetFontByLanguage()
+		private FontConfig GetFontByLanguage(bool isMain)
 		{
 			switch(LanguageID) {
 				case 1:
-					return new FontConfig() { FontFamily = "Segoe UI", FontSize = 12 };
+					return new FontConfig() { FontFamily = "Microsoft YaHei UI", FontSize = 12 };
 				default:
-					return new FontConfig() { FontFamily = "Microsoft Sans Serif", FontSize = 11 };
+					return isMain ? new FontConfig() { FontFamily = "Microsoft Sans Serif", FontSize = 11 } : new FontConfig() { FontFamily = "Segoe UI", FontSize = 12 };
 			}
 		}
 	}
