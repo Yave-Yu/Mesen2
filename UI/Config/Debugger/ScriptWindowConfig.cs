@@ -24,7 +24,7 @@ namespace Mesen.Config
 		[ObservableProperty] public partial bool AllowIoOsAccess { get; set; } = false;
 		[ObservableProperty] public partial bool AllowNetworkAccess { get; set; } = false;
 
-		[ObservableProperty] public partial bool ShowLineNumbers { get; set; } = false;
+		[ObservableProperty] public partial bool ShowLineNumbers { get; set; } = true;
 
 		[ObservableProperty] public partial UInt32 ScriptTimeout { get; set; } = 1;
 

@@ -1001,8 +1001,7 @@ int LuaApi::GetAccessCounters(lua_State* lua)
 	checkparams();
 
 	uint32_t size = _memoryDumper->GetMemorySize(memoryType);
-	vector<AddressCounters> counts;
-	counts.resize(size, {});
+	vector<AddressCounters> counts(size);
 	_debugger->GetMemoryAccessCounter()->GetAccessCounts(0, size, memoryType, counts.data());
 
 	auto getValue = [&](AddressCounters& counter) -> uint64_t {
@@ -1046,8 +1045,7 @@ int LuaApi::GetCdlData(lua_State* lua)
 	}
 
 	uint32_t size = _memoryDumper->GetMemorySize(memoryType);
-	vector<uint8_t> cdlData;
-	cdlData.resize(size, {});
+	vector<uint8_t> cdlData(size);
 	_debugger->GetCdlManager()->GetCdlData(0, size, memoryType, cdlData.data());
 
 	lua_newtable(lua);
@@ -1163,6 +1161,7 @@ int LuaApi::GetState(lua_State* lua)
 	uint32_t frameCount = _emu->GetFrameCount();
 	uint32_t masterClock = _emu->GetMasterClock();
 	uint32_t clockRate = _emu->GetMasterClockRate();
+	double fps = _emu->GetConsole()->GetFps();
 	string consoleType = string(magic_enum::enum_name<ConsoleType>(_emu->GetConsoleType()));
 	string region = string(magic_enum::enum_name<ConsoleRegion>(_emu->GetRegion()));
 
@@ -1171,6 +1170,7 @@ int LuaApi::GetState(lua_State* lua)
 	SV(region);
 	SV(frameCount);
 	SV(masterClock);
+	SV(fps);
 
 	GenerateStateTable(s, lua);
 
