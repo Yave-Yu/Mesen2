@@ -5,7 +5,24 @@
 MESENFLAGS=
 
 ifeq ($(USE_GCC),true)
-@@ -26,224 +28,223 @@
+	CXX := g++
+	CC := gcc
+	PROFILE_GEN_FLAG := -fprofile-generate
+	PROFILE_USE_FLAG := -fprofile-use
+else
+	CXX := clang++
+	CC := clang
+	ifeq ($(UNAME_S),Linux)
+		MESENFLAGS += -Werror -Wno-undefined-inline -Wno-return-type-c-linkage
+	endif
+	PROFILE_GEN_FLAG := -fprofile-instr-generate=$(CURDIR)/PGOHelper/pgo.profraw
+	PROFILE_USE_FLAG := -fprofile-instr-use=$(CURDIR)/PGOHelper/pgo.profdata
+endif
+
+SDL2LIB := $(shell sdl2-config --libs)
+SDL2INC := $(shell sdl2-config --cflags)
+
+LINKCHECKUNRESOLVED := -Wl,-z,defs
 
 LINKOPTIONS :=
 MESENOS :=
@@ -230,4 +247,3 @@ clean:
 	rm -r -f $(LUAOBJ)
 	rm -r -f $(MACOSOBJ)
 	rm -r -f $(DLLOBJ)
-	
