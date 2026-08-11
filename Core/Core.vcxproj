@@ -712,6 +712,7 @@
     <ClInclude Include="Shared\Video\DrawCommand.h" />
     <ClInclude Include="Shared\Video\DrawLineCommand.h" />
     <ClInclude Include="Shared\Video\DrawPixelCommand.h" />
+    <ClInclude Include="Shared\Video\DrawPixelsCommand.h" />
     <ClInclude Include="Shared\Video\DrawRectangleCommand.h" />
     <ClInclude Include="Shared\Video\DrawScreenBufferCommand.h" />
     <ClInclude Include="Shared\Video\DrawStringCommand.h" />
