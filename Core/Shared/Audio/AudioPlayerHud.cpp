@@ -42,7 +42,7 @@ void AudioPlayerHud::Draw(uint32_t frameCounter, double fps)
 		if(content.size() > 0 && content[0] != 0) {
 			_hud->DrawString(10, y, label, 0xBBBBBB, 0, 1);
 			_hud->DrawString(57, y, content, 0xFFFFFF, 0, 1);
-			y += 10;
+			y += 12;
 		}
 	};
 
