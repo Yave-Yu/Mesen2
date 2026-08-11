@@ -12,7 +12,7 @@ namespace Mesen.Config
 		[ObservableProperty] public partial bool DisableDynamicSampleRate { get; set; } = false;
 
 		[ObservableProperty][MinMax(0, 100)] public partial UInt32 MasterVolume { get; set; } = 100;
-		[ObservableProperty] public partial AudioSampleRate SampleRate { get; set; } = AudioSampleRate._48000;
+		[ObservableProperty] public partial AudioSampleRate SampleRate { get; set; } = AudioSampleRate._96000;
 		[ObservableProperty][MinMax(15, 300)] public partial UInt32 AudioLatency { get; set; } = 60;
 
 		[ObservableProperty] public partial bool MuteSoundInBackground { get; set; } = false;
