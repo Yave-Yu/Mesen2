@@ -60,6 +60,12 @@
     <ClInclude Include="Audio\WavReader.h">
       <Filter>Audio</Filter>
     </ClInclude>
+    <ClInclude Include="Audio\BiquadFilter.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio\BiquadCascadeFilter.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
     <ClInclude Include="Audio\blip_buf.h">
       <Filter>Audio</Filter>
     </ClInclude>
@@ -67,9 +73,6 @@
       <Filter>Audio</Filter>
     </ClInclude>
     <ClInclude Include="Audio\HermiteResampler.h">
-      <Filter>Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="Audio\LowPassFilter.h">
       <Filter>Audio</Filter>
     </ClInclude>
     <ClInclude Include="Audio\ReverbFilter.h">
@@ -252,6 +255,12 @@
       <Filter>Video</Filter>
     </ClCompile>
     <ClCompile Include="spng.c" />
+    <ClCompile Include="Audio\BiquadFilter.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio\BiquadCascadeFilter.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
     <ClCompile Include="Audio\blip_buf.cpp">
       <Filter>Audio</Filter>
     </ClCompile>
