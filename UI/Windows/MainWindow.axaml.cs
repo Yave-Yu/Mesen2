@@ -67,11 +67,11 @@ namespace Mesen.Windows
 		private Stopwatch _stopWatch = Stopwatch.StartNew();
 		private Dictionary<UInt16, long> _keyPressedStamp = new();
 		private bool _focusInMenu;
-        private bool _needRendererReset;
+		private bool _needRendererReset;
 
-        public Control Renderer => _usesSoftwareRenderer ? _softwareRenderer : _renderer;
+		public Control Renderer => _usesSoftwareRenderer ? _softwareRenderer : _renderer;
 
-        static MainWindow()
+		static MainWindow()
 		{
 			WindowStateProperty.Changed.AddClassHandler<MainWindow>((x, e) => x.OnWindowStateChanged());
 			IsActiveProperty.Changed.AddClassHandler<MainWindow>((x, e) => x.OnActiveChanged());
@@ -105,8 +105,8 @@ namespace Mesen.Windows
 			_rendererPanel = this.GetControl<Panel>("RendererPanel");
 			_rendererPanel.LayoutUpdated += RendererPanel_LayoutUpdated;
 
-            ResetRenderer();
-            
+			ResetRenderer();
+
 			_softwareRenderer = this.GetControl<SoftwareRendererView>("SoftwareRenderer");
 			_audioPlayer = this.GetControl<ContentControl>("AudioPlayer");
 			_mainMenu = this.GetControl<MainMenuView>("MainMenu");
@@ -116,25 +116,24 @@ namespace Mesen.Windows
 			Console.CancelKeyPress += Console_CancelKeyPress;
 		}
 
-        [MemberNotNull(nameof(_renderer))]
-        private void ResetRenderer()
-        {
-            if(_renderer != null && !_needRendererReset)
-            {
-                //Renderer needs to be reset when VRR mode is enabled, because DX11 does not allow switching
-                //back to the non-flip swapchain model on a window that had the flip model enabled once.
-                return;
-            }
+		[MemberNotNull(nameof(_renderer))]
+		private void ResetRenderer()
+		{
+			if(_renderer != null && !_needRendererReset) {
+				//Renderer needs to be reset when VRR mode is enabled, because DX11 does not allow switching
+				//back to the non-flip swapchain model on a window that had the flip model enabled once.
+				return;
+			}
 
-            ContentControl container = this.GetControl<ContentControl>("RendererContainer");
-            _renderer = new NativeRenderer();
-            _renderer.IsVisible = _model.IsNativeRendererVisible;
-            _model.Renderer = _renderer;
-            container.Content = _renderer;
-            _needRendererReset = false;
-        }
+			ContentControl container = this.GetControl<ContentControl>("RendererContainer");
+			_renderer = new NativeRenderer();
+			_renderer.IsVisible = _model.IsNativeRendererVisible;
+			_model.Renderer = _renderer;
+			container.Content = _renderer;
+			_needRendererReset = false;
+		}
 
-        private static void InitGlobalShortcuts()
+		private static void InitGlobalShortcuts()
 		{
 			if(Application.Current?.PlatformSettings == null) {
 				return;
@@ -241,7 +240,7 @@ namespace Mesen.Windows
 			ConfigManager.Config.Debug.Fonts.ApplyConfig();
 
 			_timerBackgroundFlag.Interval = TimeSpan.FromMilliseconds(100);
-			_timerBackgroundFlag.Tick += timerUpdateBackgroundFlag;
+			_timerBackgroundFlag.Tick += TimerUpdateBackgroundFlag;
 			_timerBackgroundFlag.Start();
 
 			//Give focus to panel to avoid menu being given focus by default
@@ -573,25 +572,22 @@ namespace Mesen.Windows
 			EmuApi.SetRendererSize(realWidth, realHeight);
 			_model.RendererSize = new Size(realWidth, realHeight);
 
-            if(WindowState == WindowState.FullScreen && !ConfigManager.Config.Video.UseExclusiveFullscreen && ConfigManager.Config.Video.EnableVariableRefreshRate)
-            {
-                //When VRR is enabled, set the renderer to the same size as the monitor when in fullscreen mode
-                PixelRect bounds = ApplicationHelper.GetMainWindow()?.Screens.Primary?.Bounds ?? default;
-                if(bounds != default)
-                {
-                    _rendererSize = bounds.Size.ToSize(LayoutHelper.GetLayoutScale(this));
-                    if(_model.IsMenuVisible)
-                    {
-                        _rendererSize = _rendererSize.WithHeight(_rendererSize.Height - _mainMenu.Bounds.Height);
-                    }
-                    _renderer.Width = _rendererSize.Width;
-                    _renderer.Height = _rendererSize.Height;
-                }
-            } else {
-                _renderer.Width = width;
-                _renderer.Height = height;
-            }
-            _model.SoftwareRenderer.Width = width;
+			if(WindowState == WindowState.FullScreen && !ConfigManager.Config.Video.UseExclusiveFullscreen && ConfigManager.Config.Video.EnableVariableRefreshRate) {
+				//When VRR is enabled, set the renderer to the same size as the monitor when in fullscreen mode
+				PixelRect bounds = ApplicationHelper.GetMainWindow()?.Screens.Primary?.Bounds ?? default;
+				if(bounds != default) {
+					_rendererSize = bounds.Size.ToSize(LayoutHelper.GetLayoutScale(this));
+					if(_model.IsMenuVisible) {
+						_rendererSize = _rendererSize.WithHeight(_rendererSize.Height - _mainMenu.Bounds.Height);
+					}
+					_renderer.Width = _rendererSize.Width;
+					_renderer.Height = _rendererSize.Height;
+				}
+			} else {
+				_renderer.Width = width;
+				_renderer.Height = height;
+			}
+			_model.SoftwareRenderer.Width = width;
 			_model.SoftwareRenderer.Height = height;
 		}
 
@@ -601,18 +597,17 @@ namespace Mesen.Windows
 			ResizeRenderer();
 		}
 
-        private void SetFullscreenMode(FullscreenMode mode, IntPtr windowHandle)
-        {
-            EmuApi.SetFullscreenMode(new FullscreenSettings()
-            {
-                Mode = mode,
-                WindowHandle = windowHandle,
-                Width = ConfigManager.Config.Video.GetFullscreenWidth(),
-                Height = ConfigManager.Config.Video.GetFullscreenHeight()
-            });
-        }
+		private void SetFullscreenMode(FullscreenMode mode, IntPtr windowHandle)
+		{
+			EmuApi.SetFullscreenMode(new FullscreenSettings() {
+				Mode = mode,
+				WindowHandle = windowHandle,
+				Width = ConfigManager.Config.Video.GetFullscreenWidth(),
+				Height = ConfigManager.Config.Video.GetFullscreenHeight()
+			});
+		}
 
-        public void ToggleFullscreen()
+		public void ToggleFullscreen()
 		{
 			if(_preventFullscreenToggle) {
 				return;
@@ -620,12 +615,12 @@ namespace Mesen.Windows
 
 			_preventFullscreenToggle = true;
 			if(WindowState == WindowState.FullScreen) {
-                ResetRenderer();
+				ResetRenderer();
 
-                Task.Run(() => {
-                    SetFullscreenMode(FullscreenMode.Disabled, _renderer.Handle);
+				Task.Run(() => {
+					SetFullscreenMode(FullscreenMode.Disabled, _renderer.Handle);
 
-                    Dispatcher.UIThread.Post(() => {
+					Dispatcher.UIThread.Post(() => {
 						WindowState = _prevWindowState;
 						if(_prevWindowState == WindowState.Normal) {
 							Width = _originalSize.Width;
@@ -657,8 +652,7 @@ namespace Mesen.Windows
 					});
 				} else {
 					Dispatcher.UIThread.Post(() => {
-						if(ConfigManager.Config.Video.EnableVariableRefreshRate)
-						{
+						if(ConfigManager.Config.Video.EnableVariableRefreshRate) {
 							_needRendererReset = OperatingSystem.IsWindows();
 							SetFullscreenMode(FullscreenMode.Borderless, _renderer.Handle);
 						}
@@ -791,7 +785,6 @@ namespace Mesen.Windows
 
 		private void TimerUpdateBackgroundFlag(object? sender, EventArgs e)
 		{
-
 			bool focusInMenu = MenuHelper.IsFocusInMenu(_mainMenu.MainMenu);
 			if(focusInMenu && !_focusInMenu) {
 				InputApi.ResetKeyState();
