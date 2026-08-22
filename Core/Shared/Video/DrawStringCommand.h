@@ -146,9 +146,7 @@ protected:
 			lineWidth = 0;
 			x = startX;
 			y += lineHeight;
-			//Reserve 3 extra pixels for wide UTF-8 characters (CJK, Kana, etc.) 
-			//to maintain vertical alignment with standard ASCII characters
-			lineHeight = 12;
+			lineHeight = 9;
 		};
 
 		for(int i = 0; i < _text.size(); i++) {
@@ -186,10 +184,10 @@ protected:
 
 					auto res = _utf8Font.find(code);
 					if(res != _utf8Font.end()) {
-						lineWidth += ColumnWidth;
+						lineWidth += 8;
 						if(_maxWidth > 0 && lineWidth > _maxWidth) {
 							newLine();
-							lineWidth += ColumnWidth;
+							lineWidth += 8;
 						}
 
 						uint16_t* charDef = (uint16_t*)res->second;
@@ -201,8 +199,8 @@ protected:
 							}
 						}
 						i += 2;
-						x += ColumnWidth;
-						lineHeight = RowHeight;
+						x += 8;
+						lineHeight = 12;
 					}
 				}
 			} else {
@@ -233,10 +231,7 @@ protected:
 	}
 
 public:
-	static constexpr uint32_t ColumnWidth = 12;
-	static constexpr uint32_t RowHeight = 12;
-
-	DrawStringCommand(int x, int y, const string& text, int color, int backColor, int frameCount, int startFrame, int maxWidth = 0, bool overwritePixels = false) :
+	DrawStringCommand(int x, int y, string text, int color, int backColor, int frameCount, int startFrame, int maxWidth = 0, bool overwritePixels = false) :
 		DrawCommand(startFrame, frameCount, true), _x(x), _y(y), _color(color), _backColor(backColor), _maxWidth(maxWidth), _text(text)
 	{
 		//Invert alpha byte - 0 = opaque, 255 = transparent (this way, no need to specifiy alpha channel all the time)
@@ -245,18 +240,18 @@ public:
 		_backColor = (~backColor & 0xFF000000) | (backColor & 0xFFFFFF);
 	}
 
-	static TextSize MeasureString(const string& text, uint32_t maxWidth = 0)
+	static TextSize MeasureString(string& text, uint32_t maxWidth = 0)
 	{
 		uint32_t maxX = 0;
 		uint32_t x = 0;
 		uint32_t y = 0;
-		uint32_t lineHeight = RowHeight;
+		uint32_t lineHeight = 9;
 
 		auto newLine = [&]() {
 			maxX = std::max(x, maxX);
 			x = 0;
 			y += lineHeight;
-			lineHeight = RowHeight;
+			lineHeight = 9;
 		};
 
 		for(int i = 0; i < text.size(); i++) {
@@ -283,12 +278,12 @@ public:
 					code |= ((uint8_t)text[i + 2]) << 16;
 					auto res = _utf8Font.find(code);
 					if(res != _utf8Font.end()) {
-						if(maxWidth > 0 && x + ColumnWidth > maxWidth) {
+						if(maxWidth > 0 && x + 8 > maxWidth) {
 							newLine();
 						}
 						i += 2;
-						x += ColumnWidth;
-						lineHeight = RowHeight;
+						x += 8;
+						lineHeight = 12;
 					}
 				}
 			} else {
