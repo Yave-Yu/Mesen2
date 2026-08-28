@@ -1200,7 +1200,7 @@ void GbPpu::WriteOam(uint8_t addr, uint8_t value, bool forDma)
 		if(forDma) {
 			_emu->ProcessPpuWrite<CpuType::Gameboy>(addr, value, MemoryType::GbSpriteRam);
 			_oam[addr] = value;
-		} else if (IsOamWriteAllowed()) {
+		} else if(IsOamWriteAllowed()) {
 			_emu->ProcessPpuWrite<CpuType::Gameboy>(addr, value, MemoryType::GbSpriteRam);
 			_oam[addr] = value;
 		} else {

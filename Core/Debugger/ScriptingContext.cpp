@@ -349,7 +349,7 @@ void ScriptingContext::InternalCallMemoryCallback(AddressInfo relAddr, T& value,
 			address = relAddr.Address;
 		} else {
 			AddressInfo absAddr = _debugger->GetAbsoluteAddress(relAddr);
-			if (!IsAddressMatch(callback, absAddr)) {
+			if(!IsAddressMatch(callback, absAddr)) {
 				continue;
 			}
 			address = absAddr.Address;
