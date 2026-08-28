@@ -23,13 +23,7 @@
 	<Design.DataContext>
 		<dvm:TilemapViewerViewModel />
 	</Design.DataContext>
-
-	<Window.Styles>
-		<Style Selector="TabStrip:singleitem">
-			<Setter Property="IsVisible" Value="False" />
-		</Style>		
-	</Window.Styles>
-
+	
 	<DockPanel>
 		<Panel DockPanel.Dock="Top">
 			<c:MesenMenu DockPanel.Dock="Top" Name="ActionMenu">
