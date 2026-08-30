@@ -199,7 +199,7 @@ protected:
 							}
 						}
 						i += 2;
-						x += 8;
+						x += 12;
 						lineHeight = 12;
 					}
 				}
@@ -278,7 +278,7 @@ public:
 					code |= ((uint8_t)text[i + 2]) << 16;
 					auto res = _utf8Font.find(code);
 					if(res != _utf8Font.end()) {
-						if(maxWidth > 0 && x + 8 > maxWidth) {
+						if(maxWidth > 0 && x + 12 > maxWidth) {
 							newLine();
 						}
 						i += 2;
