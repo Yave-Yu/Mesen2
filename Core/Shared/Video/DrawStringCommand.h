@@ -184,10 +184,10 @@ protected:
 
 					auto res = _utf8Font.find(code);
 					if(res != _utf8Font.end()) {
-						lineWidth += 8;
+						lineWidth += 12;
 						if(_maxWidth > 0 && lineWidth > _maxWidth) {
 							newLine();
-							lineWidth += 8;
+							lineWidth += 12;
 						}
 
 						uint16_t* charDef = (uint16_t*)res->second;
@@ -282,7 +282,7 @@ public:
 							newLine();
 						}
 						i += 2;
-						x += 8;
+						x += 12;
 						lineHeight = 12;
 					}
 				}
