@@ -168,8 +168,8 @@
 							<c:EnumComboBox Grid.Row="2" Grid.Column="1" SelectedItem="{Binding Config.DeinterlaceMode}" HorizontalAlignment="Left" MinWidth="175" />
 						</Grid>
 						<CheckBox IsChecked="{Binding Config.RemoveSpriteLimit}" Content="{l:Translate chkRemoveSpriteLimit}" />
+						<CheckBox IsChecked="{Binding Config.DisableFrameSkipping}" Content="{l:Translate chkDisableFrameSkipping}" />
 						<c:CheckBoxWarning IsChecked="{Binding Config.ForceFixedResolution}" Text="{l:Translate chkForceFixedResolution}" />
-						<c:CheckBoxWarning IsChecked="{Binding Config.DisableFrameSkipping}" Text="{l:Translate chkDisableFrameSkipping}" />
 						<c:CheckBoxWarning IsChecked="{Binding Config.HideBgLayer1}" Text="{l:Translate chkHideBgLayer1}" />
 						<c:CheckBoxWarning IsChecked="{Binding Config.HideBgLayer2}" Text="{l:Translate chkHideBgLayer2}" />
 						<c:CheckBoxWarning IsChecked="{Binding Config.HideBgLayer3}" Text="{l:Translate chkHideBgLayer3}" />
