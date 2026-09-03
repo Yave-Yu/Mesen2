@@ -9,10 +9,8 @@ S3511ARtc::S3511ARtc(Emulator* emu)
 {
 	_emu = emu;
 
-	_state.Status = 0x02;
-	_state.IntHour = 0x80;
-
-	GetSystemClock();
+	//Direct set 24-hour mode to compatible with some FireRed hacks' RTC
+	_state.Status = 0x40;
 }
 
 uint8_t S3511ARtc::SanitizeData(uint8_t value, uint8_t maxValue, uint8_t fixedValue)
@@ -43,9 +41,10 @@ void S3511ARtc::FromDateTime(uint64_t data, bool includeYmd)
 	uint8_t hourData = (data >> 32) & 0xBF;
 	if(is24hMode) {
 		_state.Hour = SanitizeData(hourData & 0x3F, 0x23, 0);
+		/* Disable PM flag in 24-hour to compatible with some FireRed hacks' RTC
 		if(_state.Hour >= 0x12) {
 			_state.Hour |= 0x80; //Set PM flag
-		}
+		}*/
 	} else {
 		_state.Hour = SanitizeData(hourData & 0x3F, 0x11, 0) | (hourData & 0x80);
 	}
@@ -216,8 +215,7 @@ void S3511ARtc::GetSystemClock()
 	_state.Month = ToBCD(dateTime.tm_mon + 1);
 	_state.Day = ToBCD(dateTime.tm_mday);
 	_state.DoW = dateTime.tm_wday; //No need to convert
-	uint8_t hour = ToBCD(dateTime.tm_hour); //To deal with 12-hour format
-	_state.Hour = hour >= 0x12 ? hour | 0x80: hour;
+	_state.Hour = ToBCD(dateTime.tm_hour);
 	_state.Minute = ToBCD(dateTime.tm_min);
 	_state.Second = ToBCD(dateTime.tm_sec);
 }
@@ -241,7 +239,7 @@ void S3511ARtc::UpdateTime()
 	tm.tm_min = (_state.Minute & 0x0F) + ((_state.Minute >> 4) * 10);
 	int hour = _state.Hour & 0x3F;
 	tm.tm_hour = (hour & 0x0F) + ((hour >> 4) * 10);
-	if(tm.tm_hour < 12 && (_state.Hour & 0x80)) {
+	if((_state.Hour & 0x80) && tm.tm_hour < 12) {
 		tm.tm_hour += 12;
 	}
 	tm.tm_mday = (_state.Day & 0x0F) + ((_state.Day >> 4) * 10);
@@ -275,29 +273,29 @@ void S3511ARtc::UpdateTime()
 	gmtime_r(&newTime, &newTm);
 #endif
 
-	_state.Second = (newTm.tm_sec % 10) + ((newTm.tm_sec / 10) << 4);
-	_state.Minute = (newTm.tm_min % 10) + ((newTm.tm_min / 10) << 4);
+	_state.Second = ToBCD(newTm.tm_sec);
+	_state.Minute = ToBCD(newTm.tm_min);
 
 	bool is24hMode = _state.Status & 0x40;
 	if(is24hMode) {
-		_state.Hour = (newTm.tm_hour % 10) + ((newTm.tm_hour / 10) << 4);
+		_state.Hour = ToBCD(newTm.tm_hour);
 	} else {
 		hour = newTm.tm_hour >= 12 ? newTm.tm_hour - 12 : newTm.tm_hour;
-		_state.Hour = (hour % 10) + ((hour / 10) << 4);
+		_state.Hour = ToBCD(hour);
 	}
 
-	if(newTm.tm_hour >= 12) {
-		//Set PM flag (in both 12h and 24h modes)
+	if(!(_state.Status & 0x40) && newTm.tm_hour >= 12) {
+		//Only 12-hour mode set PM flag
 		_state.Hour |= 0x80;
 	}
 
-	_state.Day = (newTm.tm_mday % 10) + ((newTm.tm_mday / 10) << 4);
+	_state.Day = ToBCD(newTm.tm_mday);
 
 	month = newTm.tm_mon + 1;
-	_state.Month = (month % 10) + ((month / 10) << 4);
+	_state.Month = ToBCD(month);
 
 	int year = newTm.tm_year - 100;
-	_state.Year = (year % 10) + ((year / 10) << 4);
+	_state.Year = ToBCD(year);
 
 	int dow = newTm.tm_wday - dowGap;
 	_state.DoW = dow < 0 ? (dow + 7) : (dow % 7);
@@ -328,7 +326,7 @@ void S3511ARtc::LoadBattery(string console)
 		}
 		_lastUpdateTime = time;
 	} else {
-		_lastUpdateTime = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+		GetSystemClock();
 	}
 }
 
