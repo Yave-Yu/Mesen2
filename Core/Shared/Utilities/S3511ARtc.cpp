@@ -8,6 +8,10 @@
 S3511ARtc::S3511ARtc(Emulator* emu)
 {
 	_emu = emu;
+
+	_state.Status = 0x02;
+	_state.IntHour = 0x80;
+
 	GetSystemClock();
 }
 
@@ -212,11 +216,10 @@ void S3511ARtc::GetSystemClock()
 	_state.Month = ToBCD(dateTime.tm_mon + 1);
 	_state.Day = ToBCD(dateTime.tm_mday);
 	_state.DoW = dateTime.tm_wday; //No need to convert
-	_state.Hour = ToBCD(dateTime.tm_hour);
+	uint8_t hour = ToBCD(dateTime.tm_hour); //To deal with 12-hour format
+	_state.Hour = hour >= 0x12 ? hour | 0x80: hour;
 	_state.Minute = ToBCD(dateTime.tm_min);
 	_state.Second = ToBCD(dateTime.tm_sec);
-
-	_state.Status = 0x40; //Due some FireRed hack doesn't initialize this value, here force initialize
 }
 
 void S3511ARtc::Reset()
